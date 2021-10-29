@@ -1,0 +1,54 @@
+cabal-version:      2.2
+name:               servant-activeresource
+version:            0.1.0.0
+synopsis:           TODO
+description:        TODO
+bug-reports:        TODO
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Bellroy Tech Team <haskell@bellroy.com>
+maintainer:         Bellroy Tech Team <haskell@bellroy.com>
+copyright:          Copyright (C) 2020-2021 Bellroy Pty Ltd
+category:           Servant, Web
+build-type:         Simple
+extra-source-files:
+  CHANGELOG.md
+  README.md
+
+tested-with:        GHC ==8.6.5 || ==8.8.4 || ==8.10.4
+
+common opts
+  default-language: Haskell2010
+  ghc-options:
+    -Wall -Wcompat -Widentities -Wincomplete-record-updates
+    -Wincomplete-uni-patterns -Werror=incomplete-patterns
+    -Wredundant-constraints -Wpartial-fields -Wtabs
+    -Wmissing-local-signatures -fhelpful-errors
+    -fprint-expanded-synonyms -fwarn-unused-do-bind
+
+common deps
+  build-depends:
+    , aeson             ^>=2.1.1.0
+    , base              ^>=4.17
+    , bytestring        ^>=0.11.3
+    , containers        ^>=0.6
+    , servant           ^>=0.20
+    , servant-server    ^>=0.20
+    , template-haskell  ^>=2.19
+    , text              ^>=2.0
+
+library
+  import:          deps, opts
+  exposed-modules: Servant.ActiveResource
+  hs-source-dirs:  src
+
+test-suite spec
+  import:         deps, opts
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: th-test
+  main-is:        Main.hs
+  build-depends:  servant-activeresource
+
+source-repository head
+  type:     git
+  location: https://github.com/bellroy/servant-activeresource.git
