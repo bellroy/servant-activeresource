@@ -14,13 +14,13 @@ import qualified Servant.ActiveResource as AR
 
 newtype MyResourceId = MyResourceId Int
 -- Type for new values or updates to existing values. Usually
--- missing an @id@ field.
+-- missing an `id` field.
 data MyResource = MyResource {...}
 -- Like MyResource, but returned from the database.
 data MyStoredResource = MyStoredResource {...}
 
 -- The exact monad used will depend on your program. Here, we just assume
--- Handler from package servant-server.
+-- `Handler` from package servant-server.
 instance AR.Resource MyResourceId Handler where
   type ResourceData MyResourceId = MyResource
   type StoredResourceData MyResourceId = MyStoredResource
