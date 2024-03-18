@@ -1,10 +1,6 @@
 {
   inputs = {
-    bellroy-nix-foss = {
-      url = "github:bellroy/bellroy-nix-foss";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixpkgs.url = "github:nixos/nixpkgs";
+    bellroy-nix-foss.url = "github:bellroy/bellroy-nix-foss";
   };
 
   outputs = inputs:
@@ -15,14 +11,11 @@
           path = ./servant-activeresource.nix;
         }
       ];
-      supportedCompilers = [ "ghc8107" "ghc92" "ghc94" ];
+      supportedCompilers = [ "ghc810" "ghc90" "ghc92" "ghc94" "ghc96" ];
       defaultCompiler = "ghc92";
-#      haskellPackagesOverride = { compilerName, haskellLib, final, prev }:
-#        if compilerName == "ghc94"
-#        then {
-#          # hal doesn't support newer hedgehog
-#          hedgehog = haskellLib.compose.dontCheck (prev.callHackage "hedgehog" "1.1.2" { });
-#        }
-#        else { };
+      haskellPackagesOverride = { haskellLib, prev, ... }: {
+        servant = haskellLib.doJailbreak prev.servant;
+        servant-server = haskellLib.doJailbreak prev.servant-server;
+      };
     };
 }

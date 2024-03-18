@@ -10,6 +10,48 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
 
+
+-- |
+--
+-- Module      : Servant.ActiveResource
+-- Copyright   : (C) 2024 Bellroy Pty Ltd
+-- License     : BSD-3-Clause
+-- Maintainer  : Bellroy Tech Team <haskell@bellroy.com>
+-- Stability   : experimental
+--
+-- Types and helpers for defining Servant routes compatible with
+-- [Rails' ActiveResource](https://github.com/rails/activeresource).
+--
+-- @
+-- {-# LANGUAGE TemplateHaskell #-}
+--
+-- import qualified Servant.ActiveResource as AR
+--
+-- newtype MyResourceId = MyResourceId Int
+-- -- Type for new values or updates to existing values. Usually
+-- -- missing an @id@ field.
+-- data MyResource = MyResource {...}
+-- -- Like MyResource, but returned from the database.
+-- data MyStoredResource = MyStoredResource {...}
+--
+-- -- The exact monad used will depend on your program. Here, we just assume
+-- -- 'Handler' from package servant-server.
+-- instance AR.'Resource' MyResourceId Handler where
+--   type 'ResourceData' MyResourceId = MyResource
+--   type 'StoredResourceData' MyResourceId = MyStoredResource
+--
+--   -- These form the implementation of your API.
+--   'listResources' = ...
+--   'createResource' = ...
+--   'readResource' = ...
+--   'upsertResource' = ...
+--   'deleteResource' = ...
+--
+-- -- Record of routes, which can be spliced into a top-level handler
+-- -- via 'Servant.API.NamedRoutes'.
+-- routes :: AR.'ResourceRoutes' MyResourceId (AsServerT Handler)
+-- routes = $(AR.'makeResourceServerT' [t|MyResourceId|])
+-- @
 module Servant.ActiveResource
   ( Resource (..),
     NotFoundError (..),
@@ -93,7 +135,7 @@ instance ToJSON NotFoundError where
 -- the payload, and the values are lists of errors at that field.
 --
 -- The 'ToJSON' instance wraps the whole thing in an @{ "errors": ... }@
--- object, to match <https://github.com/rails/activeresource/blob/3cf44f731f655dccc13ba23f78603f7e214e3352/lib/active_resource/validations.rb#L35-L71 ActiveResource's expectations>.
+-- object, to match [ActiveResource's expectations](https://github.com/rails/activeresource/blob/3cf44f731f655dccc13ba23f78603f7e214e3352/lib/active_resource/validations.rb#L35-L71).
 newtype ValidationError = ValidationError (Map Text [Text])
   deriving stock (Eq, Show, Generic)
 
