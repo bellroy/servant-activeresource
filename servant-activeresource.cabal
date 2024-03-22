@@ -1,7 +1,7 @@
-cabal-version:      2.2
-name:               servant-activeresource
-version:            0.1.0.0
-synopsis:           Servant endpoints compatible with Rails's ActiveResources
+cabal-version:   2.2
+name:            servant-activeresource
+version:         0.1.0.0
+synopsis:        Servant endpoints compatible with Rails's ActiveResources
 description:
   [ActiveResource](https://github.com/rails/activeresource) is a Rails
   library for representing resources from a RESTful API as Ruby
@@ -10,19 +10,20 @@ description:
   This library provides types and TH helpers for describing such APIs,
   and for implementing Servant-style servers to provide them.
 
-homepage:           https://github.com/bellroy/servant-activeresource
-bug-reports:        https://github.com/bellroy/servant-activeresource/issues
-license:            BSD-3-Clause
-license-file:       LICENSE
-author:             Bellroy Tech Team <haskell@bellroy.com>
-maintainer:         Bellroy Tech Team <haskell@bellroy.com>
-copyright:          Copyright (C) 2024 Bellroy Pty Ltd
-category:           Servant, Web
-build-type:         Simple
+homepage:        https://github.com/bellroy/servant-activeresource
+bug-reports:     https://github.com/bellroy/servant-activeresource/issues
+license:         BSD-3-Clause
+license-file:    LICENSE
+author:          Bellroy Tech Team <haskell@bellroy.com>
+maintainer:      Bellroy Tech Team <haskell@bellroy.com>
+copyright:       Copyright (C) 2024 Bellroy Pty Ltd
+category:        Servant, Web
+build-type:      Simple
 extra-doc-files:
   CHANGELOG.md
   README.md
-tested-with:        GHC ==8.10.7 || ==9.0.2 || ==9.2.7 || ==9.4.5 || ==9.6.2
+
+tested-with:     GHC ==8.10.7 || ==9.0.2 || ==9.2.7 || ==9.4.5 || ==9.6.2
 
 common opts
   default-language: Haskell2010
@@ -42,7 +43,7 @@ common deps
     , servant           >=0.19     && <0.21
     , servant-server    >=0.19     && <0.21
     , template-haskell  >=2.16     && <2.21
-    , text              ^>=1.2     || >=2.0   && <=2.2
+    , text              ^>=1.2     || >=2.0  && <=2.2
 
 library
   import:          deps, opts
