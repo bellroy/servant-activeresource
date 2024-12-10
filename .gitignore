@@ -1,5 +1,8 @@
 .dir-locals.el
+.direnv
+.envrc
 .pre-commit-config.yaml
+cabal.project.local
 dist-newstyle/
 dist/
 result
