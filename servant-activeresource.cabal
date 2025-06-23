@@ -1,14 +1,14 @@
 cabal-version:   2.2
 name:            servant-activeresource
-version:         0.1.0.0
-synopsis:        Servant endpoints compatible with Rails's ActiveResources
+version:         0.2.0.0
+synopsis:        Servant endpoints compatible with Rails's ActiveResource
 description:
   [ActiveResource](https://github.com/rails/activeresource) is a Rails
   library for representing resources from a RESTful API as Ruby
   objects, with a similar interface to the Rails ActiveRecord ORM.
   .
-  This library provides types and TH helpers for describing such APIs,
-  and for implementing Servant-style servers to provide them.
+  This library provides types for describing such APIs, and functions
+  to help implement Servant-style servers that provide them.
 
 homepage:        https://github.com/bellroy/servant-activeresource
 bug-reports:     https://github.com/bellroy/servant-activeresource/issues
@@ -16,7 +16,7 @@ license:         BSD-3-Clause
 license-file:    LICENSE
 author:          Bellroy Tech Team <haskell@bellroy.com>
 maintainer:      Bellroy Tech Team <haskell@bellroy.com>
-copyright:       Copyright (C) 2024 Bellroy Pty Ltd
+copyright:       Copyright (C) 2024-2025 Bellroy Pty Ltd
 category:        Servant, Web
 build-type:      Simple
 extra-doc-files:
@@ -48,14 +48,13 @@ common opts
 
 common deps
   build-depends:
-    , aeson             ^>=2.1.1.0 || ^>=2.2
-    , base              >=4.14     && <4.22
-    , bytestring        >=0.10.12  && <0.13
-    , containers        ^>=0.6     || ^>=0.7
-    , servant           >=0.19     && <0.21
-    , servant-server    >=0.19     && <0.21
-    , template-haskell  >=2.16     && <2.24
-    , text              ^>=1.2     || >=2.0  && <=2.2
+    , aeson           ^>=2.1.1.0 || ^>=2.2
+    , base            >=4.14     && <4.22
+    , bytestring      >=0.10.12  && <0.13
+    , containers      ^>=0.6     || ^>=0.7
+    , servant         >=0.19     && <0.21
+    , servant-server  >=0.19     && <0.21
+    , text            ^>=1.2     || >=2.0  && <=2.2
 
 library
   import:          deps, opts
@@ -65,6 +64,6 @@ library
 test-suite spec
   import:         deps, opts
   type:           exitcode-stdio-1.0
-  hs-source-dirs: th-test
+  hs-source-dirs: test
   main-is:        Main.hs
   build-depends:  servant-activeresource

@@ -4,12 +4,10 @@
 library for representing resources from a RESTful API as Ruby objects,
 with a similar interface to the Rails ActiveRecord ORM.
 
-This library provides types and TH helpers for describing such APIs,
-and for implementing Servant-style servers to provide them.
+This library provides types for describing such APIs, and functions to
+help implement Servant-style servers that provide them.
 
 ```haskell
-{-# LANGUAGE TemplateHaskell #-}
-
 import qualified Servant.ActiveResource as AR
 
 newtype MyResourceId = MyResourceId Int
@@ -19,21 +17,24 @@ data MyResource = MyResource {...}
 -- Like MyResource, but returned from the database.
 data MyStoredResource = MyStoredResource {...}
 
--- The exact monad used will depend on your program. Here, we just assume
--- `Handler` from package servant-server.
-instance AR.Resource MyResourceId Handler where
-  type ResourceData MyResourceId = MyResource
-  type StoredResourceData MyResourceId = MyStoredResource
+-- These type family instances associate your resource's ID type
+-- with the data types accepted and returned by your operations and
+-- by the servant-server API.
+type instance ResourceData MyResourceId = MyResource
+type instance StoredResourceData MyResourceId = MyStoredResource
 
-  -- These form the implementation of your API.
-  listResources = ...
-  createResource = ...
-  readResource = ...
-  upsertResource = ...
-  deleteResource = ...
-
--- Record of routes, which can be spliced into a top-level handler
--- via Servant.API.NamedRoutes.
-routes :: AR.ResourceRoutes MyResourceId (AsServerT Handler)
-routes = $(AR.makeResourceServerT [t|MyResourceId|])
+-- Record of routes, which can passed directly to
+-- 'Servant.Server.Generic.genericServe', or spliced into another
+-- record of routes via 'Servant.API.NamedRoutes'.
+--
+-- The exact monad used will depend on your program. Here, we just
+-- assume 'Handler' from package servant-server.
+routes :: AR.'ResourceRoutes' MyResourceId AsServer
+routes = AR.'makeResourceRoutes' 'ResourceOperations'
+  { 'listResources' = ...
+  , 'createResource' = ...
+  , 'readResource' = ...
+  , 'upsertResource' = ...
+  , 'deleteResource' = ...
+  }
 ```
