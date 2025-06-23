@@ -23,7 +23,7 @@
   `ResourceOperations`.
 
 * Added `makeResourceRoutes`, a version of `makeResourceRoutesT`
-  specialised to `ResourceOperations`.
+  specialised to `Handler`.
 
 ## 0.1.0.0 -- 2024-07-05
 
