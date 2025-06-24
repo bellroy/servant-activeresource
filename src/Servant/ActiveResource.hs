@@ -123,7 +123,7 @@ type family ResourceData id :: Type
 -- @since 0.2.0.0
 type family StoredResourceData id :: Type
 
--- | A 'Resource id m' record collects the implementations of CRUDL
+-- | A 'ResourceOperations id m' record collects the implementations of CRUDL
 -- handlers for a resource.
 --
 -- The type @id@ is the primary key for some abstract resource, and
