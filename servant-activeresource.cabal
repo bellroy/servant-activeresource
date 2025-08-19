@@ -32,7 +32,6 @@ tested-with:
    || ==9.8.2
    || ==9.10.1
    || ==9.12.1
-   || ==9.12.2
 
 source-repository head
   type:     git
