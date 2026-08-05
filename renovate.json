@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabledManagers": ["haskell-cabal", "nix", "github-actions"],
+  "nix": {
+    "enabled": true
+  },
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions"],
+      "enabled": false,
+      "description": "GitHub Actions versions in generated workflows are managed centrally by bellroy-gha-bot (bellroy/gha-workflows), not Renovate."
+    },
+    {
+      "matchManagers": ["haskell-cabal"],
+      "matchPackageNames": ["base"],
+      "enabled": false,
+      "description": "The base bound tracks the GHC versions in tested-with, not Hackage releases, so widening it is a deliberate compiler-support decision."
+    }
+  ],
+  "prHourlyLimit": 5
+}
